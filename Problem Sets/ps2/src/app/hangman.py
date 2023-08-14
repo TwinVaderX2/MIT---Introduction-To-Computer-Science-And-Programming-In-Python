@@ -111,8 +111,6 @@ def get_guessed_word(secret_word, letters_guessed):
     
     return guessed_word
 
-print(get_guessed_word(secret_word,letters_guessed))
-
 def get_available_letters(letters_guessed):
     '''
     letters_guessed: list (of letters), which letters have been guessed so far
@@ -134,8 +132,6 @@ def get_available_letters(letters_guessed):
     letters_available = letters_available.join(letters_available_list)
 
     return letters_available
-
-print(get_available_letters(letters_guessed))
 
 def guess_word(secret_word,num_of_guesses):
     """
@@ -259,11 +255,6 @@ def hangman(secret_word):
             print("You've made an invalid selection")
       else:
           print("You have made an invalid selection.")
-
-  
-hangman(secret_word)
-
-
 
 # When you've completed your hangman function, scroll down to the bottom
 # of the file and uncomment the first two lines to test
