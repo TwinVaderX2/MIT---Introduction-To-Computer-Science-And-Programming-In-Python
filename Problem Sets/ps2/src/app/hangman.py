@@ -111,9 +111,6 @@ def get_guessed_word(secret_word, letters_guessed):
     
     return guessed_word
 
-secret_word = "apple"
-letters_guessed = ['e', 'i', 'k', 'p', 'r', 's']
-
 print(get_guessed_word(secret_word,letters_guessed))
 
 def get_available_letters(letters_guessed):
