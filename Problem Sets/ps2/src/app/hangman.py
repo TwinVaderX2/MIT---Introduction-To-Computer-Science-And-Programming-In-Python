@@ -291,6 +291,7 @@ def hangman(secret_word):
             print(get_guessed_word(secret_word,letters_guessed))
             print("Let's begin.")
             guess_word(secret_word,(len(secret_word)+6))
+            break
             
         elif user_input == 'i':
             print("You have selected intermediate mode.")
@@ -298,6 +299,7 @@ def hangman(secret_word):
             print(get_guessed_word(secret_word,letters_guessed))
             print("Let's begin.")
             guess_word(secret_word,(len(secret_word)+3))
+            break
 
         elif user_input == 'e':
             print("You have selected beginner mode.")
@@ -305,6 +307,7 @@ def hangman(secret_word):
             print(get_guessed_word(secret_word,letters_guessed))
             print("Let's begin.")
             guess_word(secret_word,(len(secret_word)))
+            break
 
         elif user_input == 'w':
             print("You have selected Expert level with a hint.")
@@ -312,7 +315,7 @@ def hangman(secret_word):
             print(get_guessed_word(secret_word,letters_guessed))
             print("Let's begin.")
             guess_with_hint(secret_word)
-            pass
+            break
 
         elif user_input == 'q':
             print("Thank you for playing hangman. Please come again.")
