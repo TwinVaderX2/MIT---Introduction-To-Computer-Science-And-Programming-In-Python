@@ -170,6 +170,7 @@ def guess_word(secret_word,num_of_guesses):
                 if is_word_guessed(secret_word,letters_guessed): # call function to check if secret word is guessed
                     print("Congratulations, you have guess the secret word.")
                     print(get_guessed_word(secret_word,letters_guessed))
+                    print(f"You scored: {(num_of_guesses-count)*len(secret_word)}")
                     break
                 elif count == num_of_guesses:
                     print(f"Sorry, but you didn't manage to guess the word correctly.\n The secret word was: {secret_word} \n Please try again.")
