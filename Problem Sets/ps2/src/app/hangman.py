@@ -249,6 +249,10 @@ def hangman(secret_word):
             guess_word(secret_word,(len(secret_word)))
 
         elif user_input == 'w':
+            print("You have selected Expert level with a hint.")
+            print("You must guess a word with: "+str(len(secret_word))+" letters. \nYou will have: " + str(len(secret_word))+" guesses.\nI will give you one hint when you have 3 guesses left.")
+            print(get_guessed_word(secret_word,letters_guessed))
+            print("Let's begin.")
             pass
 
         elif user_input == 'q':
