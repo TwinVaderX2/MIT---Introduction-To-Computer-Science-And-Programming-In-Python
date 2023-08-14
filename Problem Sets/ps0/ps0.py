@@ -8,3 +8,7 @@
     4. Prints out the log (base 2) of “x”.
 
 """
+
+# create variables
+x = int(input("Please enter a whole number for 'x': "))
+y = int(input("Please enter a whole number for 'y': "))
