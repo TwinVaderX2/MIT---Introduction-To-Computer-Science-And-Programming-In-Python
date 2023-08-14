@@ -18,3 +18,6 @@ y = int(input("Please enter a whole number for 'y': "))
 
 # Output 1 - display x to the power of y
 print(f"x to the power of y: {x**y}")
+
+# Ouput 2 - log (base 2) of x
+print(f'log (base 2) of x: {numpy.log2(x)}')
