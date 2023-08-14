@@ -203,6 +203,11 @@ def guess_with_hint(secret_word):
         elif len(user_guess) < 1:
             print("No input detected.")
 
+        elif user_guess == "*":
+            print("You have successfully entered the cheat code, I will now show you all the possible matches based on the letters guessed thus far.")
+            my_word = get_guessed_word(secret_word,letters_guessed)
+            show_possible_matches(my_word)
+
         else:
             # test if the user has made the correct input
             if user_guess.isalpha():
