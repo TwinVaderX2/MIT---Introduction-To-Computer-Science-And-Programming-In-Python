@@ -339,7 +339,8 @@ if __name__ == "__main__":
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
     
-    secret_word = choose_word(wordlist)
+    # secret_word = choose_word(wordlist)
+    secret_word = 'apple'
     hangman(secret_word)
 
 ###############
