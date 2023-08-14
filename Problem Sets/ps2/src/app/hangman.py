@@ -215,6 +215,7 @@ def hangman(secret_word):
                         (b) Beginner level - Length of the word + 6 guesses
                         (i) Intermediate - Length of the word + 3 guesses
                         (e) Expert - Length of the word
+                        (w) With hints - Length of the word + with a hint
 
                         (q) Quit - Exit Program
 
@@ -246,6 +247,9 @@ def hangman(secret_word):
             print(get_guessed_word(secret_word,letters_guessed))
             print("Let's begin.")
             guess_word(secret_word,(len(secret_word)))
+
+        elif user_input == 'w':
+            pass
 
         elif user_input == 'q':
             print("Thank you for playing hangman. Please come again.")
