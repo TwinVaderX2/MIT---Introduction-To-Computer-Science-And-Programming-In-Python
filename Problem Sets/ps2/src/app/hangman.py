@@ -220,8 +220,9 @@ def guess_with_hint(secret_word):
                     break
 
                 elif (len(secret_word)-count) == 3:
-                    # give user hint using function
-                    pass
+                    my_word = get_guessed_word(secret_word,letters_guessed)
+                    show_possible_matches(my_word)
+                    print("You have 3 guesses left.")
                 
             else:
                 print("You've made an incorrect input.") # error message
@@ -381,8 +382,18 @@ def show_possible_matches(my_word):
              that has already been revealed.
 
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    # load words into list
+    wordlist = load_words()
+
+    # create variables
+    possible_words = []
+
+    # cycle through list of words, test to see if word is a match, add to list of possible words
+    for idx in wordlist:
+        if match_with_gaps(my_word,idx):
+            possible_words.append(idx)
+
+    print(f"One of the following words is your secret word:\n{possible_words}")
 
 
 
