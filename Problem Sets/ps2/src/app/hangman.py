@@ -194,7 +194,7 @@ def guess_with_hint(secret_word):
     while count != len(secret_word):
         #display number of guesses left
         print(f'You have {len(secret_word)-count} guesses left.')
-        user_guess = input("Please enter your guess:\n").lower
+        user_guess = input("Please enter your guess:\n").lower()
 
         # test if the user has made only one character input
         if len(user_guess) > 1:
@@ -219,10 +219,10 @@ def guess_with_hint(secret_word):
                     print(f"Sorry, but you didn't manage to guess the word correctly.\n The secret word was: {secret_word} \n Please try again.")
                     break
 
-                elif (len(secret_word)-count) == 3:
+                elif (len(secret_word)-count) == 2:
                     my_word = get_guessed_word(secret_word,letters_guessed)
                     show_possible_matches(my_word)
-                    print("You have 3 guesses left.")
+                    print("You have 2 guesses left.")
                 
             else:
                 print("You've made an incorrect input.") # error message
@@ -303,6 +303,7 @@ def hangman(secret_word):
             print("You must guess a word with: "+str(len(secret_word))+" letters. \nYou will have: " + str(len(secret_word))+" guesses.\nI will give you one hint when you have 3 guesses left.")
             print(get_guessed_word(secret_word,letters_guessed))
             print("Let's begin.")
+            guess_with_hint(secret_word)
             pass
 
         elif user_input == 'q':
