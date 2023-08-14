@@ -8,6 +8,9 @@
     4. Prints out the log (base 2) of “x”.
 
 """
+#import packages
+import numpy
+
 
 # create variables
 x = int(input("Please enter a whole number for 'x': "))
