@@ -160,6 +160,7 @@ def guess_word(secret_word,num_of_guesses):
 
     # request user input (loop for number of guesses)
     while count <= num_of_guesses:
+        print(f"You have {num_of_guesses-count} guesses left.")
         user_input = input("Please enter your guess:\n").lower()
 
         if len(user_input) == 1:  # check if user input is only one character
