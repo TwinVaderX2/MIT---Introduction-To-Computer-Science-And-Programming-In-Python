@@ -222,7 +222,6 @@ def guess_with_hint(secret_word):
                 elif (len(secret_word)-count) == 2:
                     my_word = get_guessed_word(secret_word,letters_guessed)
                     show_possible_matches(my_word)
-                    print("You have 2 guesses left.")
                 
                 else:
                     print("You have guessed the following letters correctly: "+get_guessed_word(secret_word,letters_guessed))
