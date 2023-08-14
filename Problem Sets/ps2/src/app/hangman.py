@@ -224,6 +224,10 @@ def guess_with_hint(secret_word):
                     show_possible_matches(my_word)
                     print("You have 2 guesses left.")
                 
+                else:
+                    print("You have guessed the following letters correctly: "+get_guessed_word(secret_word,letters_guessed))
+                    print("You still have the following letters available to guess from: "+ get_available_letters(letters_guessed))
+            
             else:
                 print("You've made an incorrect input.") # error message
 
