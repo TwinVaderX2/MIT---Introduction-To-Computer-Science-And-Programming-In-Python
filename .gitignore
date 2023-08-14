@@ -128,6 +128,7 @@ ENV/
 env.bak/
 venv.bak/
 hangman_env
+MIT
 
 # Spyder project settings
 .spyderproject
