@@ -15,3 +15,6 @@ import numpy
 # create variables
 x = int(input("Please enter a whole number for 'x': "))
 y = int(input("Please enter a whole number for 'y': "))
+
+# Output 1 - display x to the power of y
+print(f"x to the power of y: {x**y}")
