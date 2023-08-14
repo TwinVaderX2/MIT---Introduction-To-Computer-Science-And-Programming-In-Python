@@ -172,7 +172,7 @@ def guess_word(secret_word,num_of_guesses):
                     print(get_guessed_word(secret_word,letters_guessed))
                     break
                 elif count == num_of_guesses:
-                    print("Sorry, but you didn't manage to guess the word correctly. Please try again.")
+                    print(f"Sorry, but you didn't manage to guess the word correctly.\n The secret word was: {secret_word} \n gPlease try again.")
                     break
                 else:
                     print("You have guessed the following letters correctly: "+get_guessed_word(secret_word,letters_guessed))
