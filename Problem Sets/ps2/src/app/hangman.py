@@ -402,7 +402,7 @@ def show_possible_matches(my_word):
         if match_with_gaps(my_word,idx):
             possible_words.append(idx)
 
-    print(f"One of the following words is your secret word:\n{possible_words}")
+    print(f"You have been able to correctly guess the following: {my_word}\nOne of the following words is your secret word:\n{possible_words}")
 
 
 
