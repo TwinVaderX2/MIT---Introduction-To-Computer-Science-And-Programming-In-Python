@@ -177,6 +177,55 @@ def guess_word(secret_word,num_of_guesses):
         else:
             print("Please enter only one letter at a time.") # error message
 
+def guess_with_hint(secret_word):
+    '''
+        Function loops throught the length of the secret_word and provides a hint once the user
+        has 3 guesses left.
+
+        Parameters:
+        secret_word: STRING - secret word that the user must guess using input
+
+        Return: NONE
+    '''
+    # create variables
+    count = 0
+    letters_guessed = []
+
+    while count != len(secret_word):
+        #display number of guesses left
+        print(f'You have {len(secret_word)-count} guesses left.')
+        user_guess = input("Please enter your guess:\n").lower
+
+        # test if the user has made only one character input
+        if len(user_guess) > 1:
+            print("Please enter only one character at a time.")
+
+        elif len(user_guess) < 1:
+            print("No input detected.")
+
+        else:
+            # test if the user has made the correct input
+            if user_guess.isalpha():
+                count += 1
+                letters_guessed.append(user_guess)
+
+                if is_word_guessed(secret_word,letters_guessed): # call function to check if secret word is guessed
+                        print("Congratulations, you have guess the secret word.")
+                        print(get_guessed_word(secret_word,letters_guessed))
+                        print(f"You scored: {(len(secret_word)-count)*len(secret_word)}")
+                        break
+                
+                elif count == len(secret_word):
+                    print(f"Sorry, but you didn't manage to guess the word correctly.\n The secret word was: {secret_word} \n Please try again.")
+                    break
+
+                elif (len(secret_word)-count) == 3:
+                    # give user hint using function
+                    pass
+                
+            else:
+                print("You've made an incorrect input.") # error message
+
 
 def hangman(secret_word):
     '''
