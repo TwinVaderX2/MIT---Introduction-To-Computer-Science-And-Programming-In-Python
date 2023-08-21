@@ -195,7 +195,11 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
     """
-
+    # Pseudo code
+    # change 'word' into list consisting of letters
+    # loop through list: if letter is in dictionary reduce count by 1
+    #                    if letter is not in dictionary, ignore
+    # return dictionary
     pass  # TO DO... Remove this line when you implement this function
 
 #
