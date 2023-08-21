@@ -100,21 +100,25 @@ def get_word_score(word, n):
     returns: int >= 0
     """
     # First Component calculation (sum of points of letters in the word)
-    letters_in_word = word.split()
+    letters_in_word = []
+    for idx in word:
+        letters_in_word.append(idx)
     first_comp_total = 0
     for idx in letters_in_word:
-        first_comp_total += SCRABBLE_LETTER_VALUES.get(idx)
-    print(first_comp_total)
+        if type(SCRABBLE_LETTER_VALUES.get(idx)) == int:
+            first_comp_total += int(SCRABBLE_LETTER_VALUES.get(idx))
+    print(f"the first component total is: {first_comp_total}")
+
 
     # Second Component caculation (greater of 1 or 7*wordlen - 3(n-wordlen))
     print(word)
     print(n)
-    # second_comp_total = 7*len(word)-3(n-len(word))
-    if second_comp_total < 1:
-        second_comp_total = 1
+    # second_comp_total = 7*(len(word))-3(n-len(word))
+    # if second_comp_total < 1:
+    #     second_comp_total = 1
     
     # Total score calculation
-    total_score = first_comp_total*second_comp_total
+    total_score = first_comp_total
 
     return total_score
 
