@@ -104,9 +104,12 @@ def get_word_score(word, n):
     first_comp_total = 0
     for idx in letters_in_word:
         first_comp_total += SCRABBLE_LETTER_VALUES.get(idx)
+    print(first_comp_total)
 
     # Second Component caculation (greater of 1 or 7*wordlen - 3(n-wordlen))
-    second_comp_total = 7*len(word)-3(n-len(word))
+    print(word)
+    print(n)
+    # second_comp_total = 7*len(word)-3(n-len(word))
     if second_comp_total < 1:
         second_comp_total = 1
     
