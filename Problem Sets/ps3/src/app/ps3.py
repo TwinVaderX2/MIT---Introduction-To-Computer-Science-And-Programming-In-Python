@@ -200,9 +200,10 @@ def update_hand(hand, word):
     letters_in_word = []
     for letter in word:
         letters_in_word.append(letter.lower())
-    print(letters_in_word) # test code
+
     # create new hand
     new_hand = hand.copy()
+    
     # loop through list: if letter is in dictionary reduce count by 1
     #                    if letter is not in dictionary, ignore
     for idx in letters_in_word:
