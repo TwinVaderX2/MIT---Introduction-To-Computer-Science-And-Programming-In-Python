@@ -109,17 +109,16 @@ def get_word_score(word, n):
     for idx in letters_in_word:
         if type(SCRABBLE_LETTER_VALUES.get(idx)) == int: # test if value is int
             first_comp_total += int(SCRABBLE_LETTER_VALUES.get(idx))
-    print(f"the first component total is: {first_comp_total}")
 
     # Second Component caculation (greater of 1 or 7*wordlen - 3(n-wordlen))
-    print(word)
-    print(n)
-    # second_comp_total = 7*(len(word))-3(n-len(word))
-    # if second_comp_total < 1:
-    #     second_comp_total = 1
+    second_comp_total = 0
+    if word != "":
+        second_comp_total = 7*(len(word))-3*(n-len(word))
+    if second_comp_total < 1:
+        second_comp_total = 1
     
     # Total score calculation
-    total_score = first_comp_total
+    total_score = first_comp_total*second_comp_total
 
     return total_score
 
