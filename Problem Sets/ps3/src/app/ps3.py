@@ -203,7 +203,14 @@ def update_hand(hand, word):
     print(letters_in_word) # test code
     # loop through list: if letter is in dictionary reduce count by 1
     #                    if letter is not in dictionary, ignore
+    for idx in letters_in_word:
+        if hand.get(idx) != None:
+            if hand.get(idx) > 0:
+                hand[idx] -= 1
+
+    print(hand)
     # return dictionary
+    return hand
 
     
 #
