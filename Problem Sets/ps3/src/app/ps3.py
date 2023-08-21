@@ -103,7 +103,7 @@ def get_word_score(word, n):
     letters_in_word = []
     # break word into seperate letters in list format
     for idx in word:
-        letters_in_word.append(idx)
+        letters_in_word.append(idx.lower())
     first_comp_total = 0
     # iterate through list to calculate sum value of letters in word
     for idx in letters_in_word:
