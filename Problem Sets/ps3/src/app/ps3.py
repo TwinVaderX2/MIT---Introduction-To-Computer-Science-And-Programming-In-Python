@@ -201,16 +201,18 @@ def update_hand(hand, word):
     for letter in word:
         letters_in_word.append(letter.lower())
     print(letters_in_word) # test code
+    # create new hand
+    new_hand = hand.copy()
     # loop through list: if letter is in dictionary reduce count by 1
     #                    if letter is not in dictionary, ignore
     for idx in letters_in_word:
-        if hand.get(idx) != None:
-            if hand.get(idx) > 0:
-                hand[idx] -= 1
+        if new_hand.get(idx) != None:
+            if new_hand.get(idx) > 0:
+                new_hand[idx] -= 1
 
-    print(hand)
+    print(new_hand, hand)
     # return dictionary
-    return hand
+    return new_hand
 
     
 #
