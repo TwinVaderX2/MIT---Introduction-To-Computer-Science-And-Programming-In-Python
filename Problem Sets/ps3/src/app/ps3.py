@@ -197,11 +197,15 @@ def update_hand(hand, word):
     """
     # Pseudo code
     # change 'word' into list consisting of letters
+    letters_in_word = []
+    for letter in word:
+        letters_in_word.append(letter.lower())
+    print(letters_in_word) # test code
     # loop through list: if letter is in dictionary reduce count by 1
     #                    if letter is not in dictionary, ignore
     # return dictionary
-    pass  # TO DO... Remove this line when you implement this function
 
+    
 #
 # Problem #3: Test word validity
 #
