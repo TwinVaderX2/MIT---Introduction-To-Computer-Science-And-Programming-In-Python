@@ -261,6 +261,7 @@ def is_valid_word(word, hand, word_list):
                 if idx == '*':
                     letters_in_word[letters_in_word.index(idx)] = x
             # convert list into new word
+            new_word = ''
             new_word = new_word.join(letters_in_word)
             # test word against list
             word_in_list = test_word(new_word,word_list)
