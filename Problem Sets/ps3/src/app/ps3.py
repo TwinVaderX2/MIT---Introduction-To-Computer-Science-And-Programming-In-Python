@@ -234,6 +234,9 @@ def is_valid_word(word, hand, word_list):
     returns: boolean
     """
     # Pseudo code
+    # copy dictionary: hand
+    new_hand = hand.copy()
+
     # change word into dictionary
     word_dic = {}
     for letter in word:
@@ -241,9 +244,24 @@ def is_valid_word(word, hand, word_list):
             word_dic.update({letter.lower():word_dic.get(letter)+1})
         else:
             word_dic.update({letter.lower():1})
+    print(word_dic)
     
     # test word against list, if word is in list, continue, else return false
+    word_in_list = False
+    for idx in word_list:
+        if idx == word:
+            word_in_list = True
+
     # compare dictionaries, if hand contains required letters, return true, else return false
+    if word_in_list == True:
+        for idx in new_hand:
+            if word_dic.get(idx) != new_hand.get(idx):
+                return False
+            else:
+                hand = update_hand(new_hand,word)
+                return True
+    else:
+        return word_in_list
 
 #
 # Problem #5: Playing a hand
