@@ -235,6 +235,13 @@ def is_valid_word(word, hand, word_list):
     """
     # Pseudo code
     # change word into dictionary
+    word_dic = {}
+    for letter in word:
+        if word_dic.get(letter) != None:
+            word_dic.update({letter.lower():word_dic.get(letter)+1})
+        else:
+            word_dic.update({letter.lower():1})
+    
     # test word against list, if word is in list, continue, else return false
     # compare dictionaries, if hand contains required letters, return true, else return false
 
