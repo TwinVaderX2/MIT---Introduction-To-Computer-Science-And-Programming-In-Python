@@ -214,7 +214,6 @@ def update_hand(hand, word):
     # remove letters with 0 value
     new_hand = {k: v for k, v in new_hand.items() if v > 0}
 
-    print(new_hand, hand)
     # return dictionary
     return new_hand
 
