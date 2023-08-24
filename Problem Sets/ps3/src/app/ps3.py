@@ -232,7 +232,14 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
-    # Pseudo code
+    # Pseudo code - test with wildcard
+    # test if 'word' contains wildcard
+    #   create list containing characters used in 'word'
+    #   loop through list, if 'word' contains wildcard set variable 'contains_wildcard' to True
+    # if 'word' contains wildcard; test word containing wildcard against list of words
+    #   wildcard may only be used for vowels, i.e. loop through vowels and replace wildcard with vowel; test against list
+    # if word containing wildcard is valid, continue to next test
+    
     # copy dictionary: hand
     new_hand = hand.copy()
 
