@@ -246,6 +246,12 @@ def is_valid_word(word, hand, word_list):
     # create list containing characters in 'word'
     letters_in_word = [x for x in word]
 
+    # test if 'word' contains wildcard
+    contains_wildcard = False
+    for idx in letters_in_word:
+        if idx == '*':
+            contains_wildcard = True
+
     # test word against list, if word is in list, continue, else return false
     word_in_list = False
     for idx in word_list:
