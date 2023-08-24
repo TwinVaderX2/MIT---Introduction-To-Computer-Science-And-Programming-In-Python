@@ -263,12 +263,12 @@ def is_valid_word(word, hand, word_list):
             # convert list into new word
             new_word = new_word.join(letters_in_word)
             # test word against list
-            word_in_list = test_word(new_word)
+            word_in_list = test_word(new_word,word_list)
             if word_in_list:
                 break
     
     elif not contains_wildcard:
-        word_in_list = test_word(word)
+        word_in_list = test_word(word,word_list)
 
     # change word into dictionary
     word_dic = {}
@@ -293,7 +293,7 @@ def is_valid_word(word, hand, word_list):
 #
 # Problem #5: Playing a hand
 #
-def test_word(word):
+def test_word(word,word_list):
     '''
         Function test word against list
         Returns true if word is in list
