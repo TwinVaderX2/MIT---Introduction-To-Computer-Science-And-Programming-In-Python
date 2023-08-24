@@ -236,6 +236,12 @@ def is_valid_word(word, hand, word_list):
     # copy dictionary: hand
     new_hand = hand.copy()
 
+    # test word against list, if word is in list, continue, else return false
+    word_in_list = False
+    for idx in word_list:
+        if idx == word.lower():
+            word_in_list = True
+
     # change word into dictionary
     word_dic = {}
     for letter in word:
@@ -244,12 +250,6 @@ def is_valid_word(word, hand, word_list):
         else:
             word_dic.update({letter.lower():1})
 
-    
-    # test word against list, if word is in list, continue, else return false
-    word_in_list = False
-    for idx in word_list:
-        if idx == word.lower():
-            word_in_list = True
 
     # compare dictionaries, if hand contains required letters, return true, else return false
     if word_in_list == True:
