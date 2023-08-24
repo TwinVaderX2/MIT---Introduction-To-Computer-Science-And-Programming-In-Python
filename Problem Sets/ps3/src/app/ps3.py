@@ -252,11 +252,23 @@ def is_valid_word(word, hand, word_list):
         if idx == '*':
             contains_wildcard = True
 
-    # test word against list, if word is in list, continue, else return false
-    word_in_list = False
-    for idx in word_list:
-        if idx == word.lower():
-            word_in_list = True
+    # if contains_wildcard == True: loop through VOWELS and replace wildcard in 'word' with relevant vowel; test if word is valid
+    # else test if 'word' is valid
+    if contains_wildcard:
+        for x in VOWELS:
+            # replace wildcard in list
+            for idx in letters_in_word:
+                if idx == '*':
+                    letters_in_word[letters_in_word.index(idx)] = x
+            # convert list into new word
+            new_word = new_word.join(letters_in_word)
+            # test word against list
+            word_in_list = test_word(new_word)
+            if word_in_list:
+                break
+    
+    elif not contains_wildcard:
+        word_in_list = test_word(word)
 
     # change word into dictionary
     word_dic = {}
@@ -281,6 +293,18 @@ def is_valid_word(word, hand, word_list):
 #
 # Problem #5: Playing a hand
 #
+def test_word(word):
+    '''
+        Function test word against list
+        Returns true if word is in list
+    '''
+    # test word against list, if word is in list, continue, else return false
+    word_in_list = False
+    for idx in word_list:
+        if idx == word.lower():
+            word_in_list = True
+
+    return word_in_list
 def calculate_handlen(hand):
     """ 
     Returns the length (number of letters) in the current hand.
