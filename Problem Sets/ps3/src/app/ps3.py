@@ -233,8 +233,10 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
-
-    pass  # TO DO... Remove this line when you implement this function
+    # Pseudo code
+    # change word into dictionary
+    # test word against list, if word is in list, continue, else return false
+    # compare dictionaries, if hand contains required letters, return true, else return false
 
 #
 # Problem #5: Playing a hand
