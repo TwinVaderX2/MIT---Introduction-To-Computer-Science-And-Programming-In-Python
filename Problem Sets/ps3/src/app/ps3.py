@@ -239,9 +239,12 @@ def is_valid_word(word, hand, word_list):
     # if 'word' contains wildcard; test word containing wildcard against list of words
     #   wildcard may only be used for vowels, i.e. loop through vowels and replace wildcard with vowel; test against list
     # if word containing wildcard is valid, continue to next test
-    
+
     # copy dictionary: hand
     new_hand = hand.copy()
+
+    # create list containing characters in 'word'
+    letters_in_word = [x for x in word]
 
     # test word against list, if word is in list, continue, else return false
     word_in_list = False
