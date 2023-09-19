@@ -217,8 +217,6 @@ def update_hand(hand, word):
     # return dictionary
     return new_hand
 
-    
-#
 # Problem #3: Test word validity
 
 def hand_used(word, hand):
@@ -309,10 +307,8 @@ def is_valid_word(word, hand, word_list):
             else:
                 return False
 
-    
-#
 # Problem #5: Playing a hand
-#
+
 def test_word(word,word_list):
     '''
         Function test word against list
@@ -334,8 +330,16 @@ def calculate_handlen(hand):
     hand: dictionary (string-> int)
     returns: integer
     """
+    # create varaible - tile_count
+    tile_count = 0
+
+    # loop through dictionary
+    for idx in hand:
+        # add item count to tile_count
+        tile_count += hand[idx]
     
-    pass  # TO DO... Remove this line when you implement this function
+    # return tile_count
+    return tile_count
 
 def play_hand(hand, word_list):
 
