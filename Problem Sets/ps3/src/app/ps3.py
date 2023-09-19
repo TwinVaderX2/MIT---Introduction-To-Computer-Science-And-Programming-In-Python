@@ -221,6 +221,32 @@ def update_hand(hand, word):
 #
 # Problem #3: Test word validity
 #
+# create new function to test if 'word played' used characters from 'hand
+def hand_used(word, hand):
+    # copy 'hand' to 'new_hand' to avoid update
+    new_hand = hand.copy()
+    # create list containing characters used in 'word'
+    letters_in_word = [x.lower() for x in word]
+    # loop through 'letters_in_word'
+    for letter in letters_in_word:
+        #   test if letter used in 'word' is available in 'hand'
+        if letter in new_hand:
+            # test if enough letters are available in hand, i.e. item count must be >= 1
+            if new_hand[letter] >= 1:
+                # update 'hand'
+                new_hand[letter] -= 1
+            # if item count is <= 0, return False
+            else:
+                return False
+        
+        # if letter is not found in hand, return false
+        else:
+            return False
+
+    # if test loop completed successfully (no false returns), return True
+    return True
+
+
 def is_valid_word(word, hand, word_list):
     """
     Returns True if word is in the word_list and is entirely
@@ -244,7 +270,9 @@ def is_valid_word(word, hand, word_list):
     new_hand = hand.copy()
 
     # create list containing characters in 'word'
-    letters_in_word = [x for x in word]
+    letters_in_word = [x.lower() for x in word]
+    # create duplicate for testing
+    tester = letters_in_word.copy()
 
     # test if 'word' contains wildcard
     contains_wildcard = False
@@ -259,38 +287,30 @@ def is_valid_word(word, hand, word_list):
             # replace wildcard in list
             for idx in letters_in_word:
                 if idx == '*':
-                    letters_in_word[letters_in_word.index(idx)] = x
+                    tester[letters_in_word.index(idx)] = x
             # convert list into new word
             new_word = ''
-            new_word = new_word.join(letters_in_word)
+            new_word = new_word.join(tester)
             # test word against list
             word_in_list = test_word(new_word,word_list)
             if word_in_list:
                 break
     
-    elif not contains_wildcard:
-        word_in_list = test_word(word,word_list)
-
-    # change word into dictionary
-    word_dic = {}
-    for letter in word:
-        if word_dic.get(letter) != None:
-            word_dic.update({letter.lower():word_dic.get(letter)+1})
-        else:
-            word_dic.update({letter.lower():1})
-
-
-    # compare dictionaries, if hand contains required letters, return true, else return false
-    if word_in_list == True:
-        for idx in word_dic:
-            if new_hand.get(idx) == None or word_dic.get(idx) > new_hand.get(idx):
-                return False
-            else:
-                hand = update_hand(new_hand,word)
+        if word_in_list:
+            # test if 'word' contains letters from hand
+            if hand_used(word, new_hand):
                 return True
-    else:
-        return word_in_list
 
+    elif not contains_wildcard:
+        # test if 'word' is in 'word_list'
+        word_in_list = test_word(word,word_list)
+        if word_in_list:
+            if hand_used(word,new_hand):
+                return True
+            else:
+                return False
+
+    
 #
 # Problem #5: Playing a hand
 #
@@ -304,8 +324,10 @@ def test_word(word,word_list):
     for idx in word_list:
         if idx == word.lower():
             word_in_list = True
+            break
 
     return word_in_list
+
 def calculate_handlen(hand):
     """ 
     Returns the length (number of letters) in the current hand.
