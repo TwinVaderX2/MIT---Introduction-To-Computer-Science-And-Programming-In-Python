@@ -220,9 +220,16 @@ def update_hand(hand, word):
     
 #
 # Problem #3: Test word validity
-#
-# create new function to test if 'word played' used characters from 'hand
+
 def hand_used(word, hand):
+    """
+    Return true if 'word' played by user contains characters available in 'hand'
+    Returns false if 'word' contains characters not available in 'hand'
+    Does not mutate 'hand'
+
+    word: string
+    hand: dictionary (string -> int)
+    """
     # copy 'hand' to 'new_hand' to avoid update
     new_hand = hand.copy()
     # create list containing characters used in 'word'
@@ -258,14 +265,6 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
-    # Pseudo code - test with wildcard
-    # test if 'word' contains wildcard
-    #   create list containing characters used in 'word'
-    #   loop through list, if 'word' contains wildcard set variable 'contains_wildcard' to True
-    # if 'word' contains wildcard; test word containing wildcard against list of words
-    #   wildcard may only be used for vowels, i.e. loop through vowels and replace wildcard with vowel; test against list
-    # if word containing wildcard is valid, continue to next test
-
     # copy dictionary: hand
     new_hand = hand.copy()
 
