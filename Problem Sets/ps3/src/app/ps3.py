@@ -371,38 +371,46 @@ def play_hand(hand, word_list):
       returns: the total score for the hand
       
     """
+    total_score = 0
     
-    # BEGIN PSEUDOCODE <-- Remove this comment when you implement this function
-    # Keep track of the total score
-    
-    # As long as there are still letters left in the hand:
+    while calculate_handlen(hand) > 0:
     
         # Display the hand
+        print(f"Current hand: {hand}")
         
         # Ask user for input
+        player_word = input("Please enter your word. (Enter \'!!\' to exit) \n")
         
         # If the input is two exclamation points:
-        
+        if player_word == "!!":
             # End the game (break out of the loop)
+            print("Thank you for playing. Goodbye")
+            break
 
-            
         # Otherwise (the input is not two exclamation points):
-
+        else:
             # If the word is valid:
+            if is_valid_word(player_word,hand,word_list):
+                # Calculate word score
+                word_score = get_word_score(player_word,calculate_handlen(hand))
+                # Update total score
+                total_score += word_score
+                # Display results
+                print(f"You played: {player_word} for {word_score}. \nTotal: {total_score} points")
+                hand = update_hand(hand,player_word)
 
-                # Tell the user how many points the word earned,
-                # and the updated total score
+            else:
+                print("Error, you have played an invalid word.")
+                hand = update_hand(hand,player_word)
 
-            # Otherwise (the word is not valid):
-                # Reject invalid word (print a message)
-                
-            # update the user's hand by removing the letters of their inputted word
             
 
     # Game is over (user entered '!!' or ran out of letters),
     # so tell user the total score
+    print(f"Ran out of letters. Total score: {total_score} points.")
 
     # Return the total score as result of function
+    return total_score
 
 
 
@@ -483,4 +491,6 @@ def play_game(word_list):
 #
 if __name__ == '__main__':
     word_list = load_words(full_path)
-    play_game(word_list)
+    # play_game(word_list)
+    hand = deal_hand(7)
+    play_hand(hand, word_list)
