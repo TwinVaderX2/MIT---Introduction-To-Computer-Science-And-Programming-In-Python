@@ -11,6 +11,7 @@ import math
 import random
 import string
 import os
+import random
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
@@ -446,8 +447,33 @@ def substitute_hand(hand, letter):
     returns: dictionary (string -> int)
     """
     
-    pass  # TO DO... Remove this line when you implement this function
-       
+    # Pseudo code
+    # clone hand - new_hand
+    new_hand = hand.copy()
+    # check if letter (to be replaced) is in hand
+    if letter not in new_hand or letter == '*':
+        # if not found, return current hand (display error message)
+        print("Error, letter not found")
+        return new_hand
+    # if found
+    if letter in hand:
+        while True:
+            if letter in VOWELS:
+                new_letter = random.choice(VOWELS)
+                if new_letter not in new_hand:
+                    break
+            else: 
+                new_letter = random.choice(CONSONANTS)
+                if new_letter not in new_hand:
+                    break
+        
+        # replace current letter (in hand) with new letter
+        new_hand[new_letter] = new_hand.pop(letter)
+    
+    # return new hand
+    return new_hand
+
+
     
 def play_game(word_list):
     """
@@ -493,4 +519,7 @@ if __name__ == '__main__':
     word_list = load_words(full_path)
     # play_game(word_list)
     hand = deal_hand(7)
-    play_hand(hand, word_list)
+    print(hand)
+    letter = input("enter letter: \n")
+    print(substitute_hand(hand,letter))
+    # play_hand(hand, word_list)
