@@ -346,6 +346,7 @@ def match_with_gaps(my_word, other_word):
         False otherwise: 
     '''
     # set variables
+<<<<<<< Updated upstream
     does_match = False
     my_word_length = len(my_word.strip(" "))
     other_word_length = len(other_word)
@@ -381,6 +382,13 @@ def match_with_gaps(my_word, other_word):
                 break
     
     return is_match
+=======
+    my_word_length = len(my_word.strip(" "))
+    other_word_length = len(other_word)
+
+    # FILL IN YOUR CODE HERE AND DELETE "pass"
+    pass
+>>>>>>> Stashed changes
 
 
 
