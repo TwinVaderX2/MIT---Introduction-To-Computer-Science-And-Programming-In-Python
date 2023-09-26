@@ -413,17 +413,6 @@ def play_hand(hand, word_list):
     # Return the total score as result of function
     return total_score
 
-
-
-#
-# Problem #6: Playing a game
-# 
-
-
-#
-# procedure you will use to substitute a letter in a hand
-#
-
 def substitute_hand(hand, letter):
     """ 
     Allow the user to replace all copies of one letter in the hand (chosen by user)
@@ -505,8 +494,104 @@ def play_game(word_list):
 
     word_list: list of lowercase strings
     """
+    # Pseudo code
+    # Display welcome message
+    welcome_message =   '''
+                        Welcome to the word game.
+                        You will be able to play up to 10 hands. (You get to choose how many hands are to be played)
+                        Each hand will consist of up to 7 letters and may contain a wildcard ('*').
+                        Wildcards may only be played in place of vowels.
+                        Each word played will earn you a score based on the letters played.
+
+                        You may choose to replace one letter from a single hand. (You will only be able to do this once
+                        during your game.)
+
+                        You will only be allowed to replay one hand. The best score from that hand
+                        will be added to your total score.
+
+                        Before each hand is played, you may choose to replace 1 letter in your hand.
+
+                        To exit the game, enter '!!'
+
+                        GOOD LUCK
+                        '''
     
-    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
+    total_score = 0
+    hand_score = 0
+    
+    replayed_hand = False
+    replaced_letter = False
+    count = 0
+
+    # request user to input number of hands to be played
+    while True:
+        try:
+            n_hands = int(input("Please enter the number of hands you wish to play:\n"))
+            if n_hands > 10 or n_hands <= 0:
+                print("Error, please enter a number between 1 - 10")
+            else:
+                break
+        except TypeError:
+            print("Error, please enter a number between 1 - 10")
+    
+    while count < n_hands:
+        # Deal new hand
+        hand = deal_hand(7)
+
+        # Prompt user if he wants to substitute/replace a letter in the hand before playing new hand
+        # May only replace a letter from hand once during game
+        if replaced_letter == False:
+            while True:
+                replace = input(f"Would you like to replace a letter from your current hand: {hand}\n(Enter y: yes or n: no) ")
+                if replace == 'y':
+                    new_letter = input("Please enter the letter you wish to replace (please ensure that you only select from the hand):\n")
+                    hand = substitute_hand(hand,new_letter)
+                    replaced_letter = True
+                    break
+
+                elif replace == 'n':
+                    break
+
+                elif replace == '!!':
+                    return total_score
+
+                else:
+                    print("Error, please enter only 'y' or 'n'")
+
+        # Prompt user if he wants to replay hand (may only do this once), keep best score
+        if replayed_hand == False:
+            hand_score = play_hand(hand,word_list)
+            
+            while True:
+                replay = input("Would you like to replay that hand?\n(Enter y: yes or n: no) ")
+                if replay == 'y':
+                    new_hand_score = play_hand(hand,word_list)
+                    if new_hand_score > hand_score:
+                        hand_score = new_hand_score
+                    replayed_hand = True
+                    count += 1
+                    break
+
+                elif replay == 'n':
+                    count += 1
+                    break
+
+                elif replace == '!!':
+                    return total_score
+
+                else:
+                    print('Error, please enter only "y" or "n"')
+
+        # if user has already replayed a hand, player must play current hand
+        elif replayed_hand:
+            hand_score = play_hand(hand,word_list)
+            count += 1
+    
+        # update total score
+        total_score += hand_score
+
+    return total_score
+
     
 
 
@@ -517,9 +602,6 @@ def play_game(word_list):
 #
 if __name__ == '__main__':
     word_list = load_words(full_path)
-    # play_game(word_list)
-    hand = deal_hand(7)
-    print(hand)
-    letter = input("enter letter: \n")
-    print(substitute_hand(hand,letter))
-    # play_hand(hand, word_list)
+    score = play_game(word_list)
+    print(f"Thank you for playing. You managed to score: {score} points.\nWell done!!")
+
