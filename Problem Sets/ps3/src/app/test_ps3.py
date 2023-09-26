@@ -5,13 +5,6 @@ import os
 # Test code
 #
 
-# ================== CREATE RELATIVE PATH FOR FILE ================
-# import words from external source
-WORDLIST_FILENAME = "words.txt"
-absolute_path = os.path.dirname(__file__)
-relative_path = "../resources/"+ WORDLIST_FILENAME
-full_path = os.path.join(absolute_path,relative_path)
-
 def test_get_word_score():
     """
     Unit test for get_word_score
