@@ -1,7 +1,7 @@
 # Problem Set 4A
-# Name: <your name here>
-# Collaborators:
-# Time Spent: x:xx
+# Name: Phillip van Staden
+# Code from link: https://www.youtube.com/watch?v=eMp4Rb8DcTI used to find solution
+
 
 def get_permutations(sequence):
     '''
@@ -22,19 +22,27 @@ def get_permutations(sequence):
     Note: depending on your implementation, you may return the permutations in
     a different order than what is listed here.
     '''
+    # change word into list of char
+    ls = [i for i in sequence]
 
-    pass #delete this line and replace with your code here
+    # list of all permutations
+    all_perm = []
+
+    # base case - one char length
+    if len(ls) <= 1:
+        return ls
+
+    # recursion case = if length of word is more than one char length, keep first char and find permutation of the remaining
+    else:
+        for i in range(len(ls)):
+            temp = ls.copy()
+            first = temp.pop(i)
+            all_perm = all_perm + [first + j for j in get_permutations(temp)]
+        return all_perm
+
 
 if __name__ == '__main__':
-#    #EXAMPLE
-#    example_input = 'abc'
-#    print('Input:', example_input)
-#    print('Expected Output:', ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
-#    print('Actual Output:', get_permutations(example_input))
-    
-#    # Put three example test cases here (for your sanity, limit your inputs
-#    to be three characters or fewer as you will have n! permutations for a 
-#    sequence of length n)
 
-    pass #delete this line and replace with your code here
+    print(get_permutations('ab'))
+
 
