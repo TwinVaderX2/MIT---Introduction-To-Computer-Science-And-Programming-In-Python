@@ -1,12 +1,24 @@
 # Problem Set 4B
-# Name: <your name here>
-# Collaborators:
-# Time Spent: x:xx
+# Name: Phillip van Staden
+
 
 import string
+import os
+
+# ================== CREATE RELATIVE PATH FOR FILE ================
+# relative path for words.txt file
+WORDLIST_FILENAME = "words.txt"
+absolute_path = os.path.dirname(__file__)
+relative_path = "../resources/"+ WORDLIST_FILENAME
+words_full_path = os.path.join(absolute_path,relative_path)
+
+# relative path for story.txt
+STORY_FILENAME = 'story.txt'
+relative_path = "../resources/" + STORY_FILENAME
+story_full_path = os.path.join(absolute_path,relative_path)
 
 ### HELPER CODE ###
-def load_words(file_name):
+def load_words(words_full_path):
     '''
     file_name (string): the name of the file containing 
     the list of words to load    
@@ -18,13 +30,13 @@ def load_words(file_name):
     '''
     print("Loading word list from file...")
     # inFile: file
-    inFile = open(file_name, 'r')
-    # wordlist: list of strings
-    wordlist = []
+    inFile = open(words_full_path, 'r')
+    # word_list: list of strings
+    word_list = []
     for line in inFile:
-        wordlist.extend([word.lower() for word in line.split(' ')])
-    print("  ", len(wordlist), "words loaded.")
-    return wordlist
+        word_list.extend([word.lower() for word in line.split(' ')])
+    print("  ", len(word_list), "words loaded.")
+    return word_list
 
 def is_word(word_list, word):
     '''
@@ -46,18 +58,16 @@ def is_word(word_list, word):
     word = word.strip(" !@#$%^&*()-_+={}[]|\:;'<>?,./\"")
     return word in word_list
 
-def get_story_string():
+def get_story_string(story_full_path):
     """
     Returns: a story in encrypted text.
     """
-    f = open("story.txt", "r")
+    f = open(story_full_path, "r")
     story = str(f.read())
     f.close()
     return story
 
 ### END HELPER CODE ###
-
-WORDLIST_FILENAME = 'words.txt'
 
 class Message(object):
     def __init__(self, text):
