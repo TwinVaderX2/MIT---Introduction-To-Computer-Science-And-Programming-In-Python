@@ -69,7 +69,7 @@ def get_story_string(story_full_path):
 
 ### END HELPER CODE ###
 
-class Message(object):
+class Message():
     def __init__(self, text):
         '''
         Initializes a Message object
@@ -80,7 +80,8 @@ class Message(object):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        self.message_text = text
+        self.valid_words = load_words(words_full_path)
 
     def get_message_text(self):
         '''
@@ -88,7 +89,7 @@ class Message(object):
         
         Returns: self.message_text
         '''
-        pass #delete this line and replace with your code here
+        return print(self.message_text)
 
     def get_valid_words(self):
         '''
@@ -97,7 +98,7 @@ class Message(object):
         
         Returns: a COPY of self.valid_words
         '''
-        pass #delete this line and replace with your code here
+        return self.valid_words.copy()
 
     def build_shift_dict(self, shift):
         '''
@@ -113,7 +114,27 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        pass #delete this line and replace with your code here
+        try:
+            int(shift)
+
+            alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+            # Create list of char in alphabet (including capital letters)
+            alphabet_ls = [i for i in alphabet]
+            
+            # Create new alphabet shifting letters (in alphabet) by 'shift'
+            cipher_alph = alphabet[shift+1:]+alphabet[:shift+1]
+            
+            cipher_alph_ls = [i for i in cipher_alph]
+            
+            # Combine two list to create new cipher
+            cipher = dict(zip(alphabet_ls,cipher_alph_ls))
+            
+            return cipher
+
+        except TypeError:
+            print("You have made an invalid input, unable to create cipher.")
+        
 
     def apply_shift(self, shift):
         '''
