@@ -113,27 +113,44 @@ class Message():
 
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
+
+        Returns: None if incorrect input is detected.
         '''
         try:
             int(shift)
 
-            alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            if shift <= 26:
+                alphabet = 'abcdefghijklmnopqrstuvwxyz'
+                caps_alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-            # Create list of char in alphabet (including capital letters)
-            alphabet_ls = [i for i in alphabet]
+                # Create list of char in alphabet (including capital letters)
+                alphabet_ls = [i for i in alphabet]
+                caps_ls = [i for i in caps_alph]
+                
+                # Create new alphabet shifting letters (in alphabet) by 'shift'
+                cipher_alph = alphabet[shift:]+alphabet[:shift]
+                caps_cipher_alph = caps_alph[shift:]+caps_alph[:shift]
+                
+                # Create list of char in alphabet
+                cipher_alph_ls = [i for i in cipher_alph]
+                caps_cipher_alph_ls = [i for i in caps_cipher_alph]
+                
+                # Combine two list to create new cipher
+                cipher_lower = dict(zip(alphabet_ls,cipher_alph_ls))
+                cipher_caps = dict(zip(caps_ls,caps_cipher_alph_ls))
+
+                # join two ciphers
+                cipher = {**cipher_lower, **cipher_caps}
+                
+                return cipher
             
-            # Create new alphabet shifting letters (in alphabet) by 'shift'
-            cipher_alph = alphabet[shift+1:]+alphabet[:shift+1]
-            
-            cipher_alph_ls = [i for i in cipher_alph]
-            
-            # Combine two list to create new cipher
-            cipher = dict(zip(alphabet_ls,cipher_alph_ls))
-            
-            return cipher
+            else:
+                print('Error, unable to create cipher.\nPlease enter a number between 0 and 26.')
+                return None
 
         except TypeError:
             print("You have made an invalid input, unable to create cipher.")
+            return None
         
 
     def apply_shift(self, shift):
@@ -148,7 +165,17 @@ class Message():
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        pass #delete this line and replace with your code here
+        cipher = self.build_shift_dict(shift)
+        message_text_ls = [i for i in self.message_text]
+        new_message_text = ''
+
+        for idx in message_text_ls:
+            if idx in cipher:
+                new_message_text = new_message_text + cipher.get(idx)
+            else:
+                new_message_text = new_message_text + idx
+        
+        return new_message_text
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
@@ -237,6 +264,12 @@ class CiphertextMessage(Message):
         pass #delete this line and replace with your code here
 
 if __name__ == '__main__':
+
+    message = Message('Hello, World!')
+    message.get_message_text()
+    message.get_valid_words()
+    secret_message = message.apply_shift(4)
+    print(secret_message)
 
 #    #Example test case (PlaintextMessage)
 #    plaintext = PlaintextMessage('hello', 2)
