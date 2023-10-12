@@ -89,7 +89,11 @@ class Message():
         
         Returns: self.message_text
         '''
-        return print(self.message_text)
+        return self.message_text
+    
+    def __str__(self):
+        
+        return print(f'The original message is: {self.message_text}')
 
     def get_valid_words(self):
         '''
@@ -98,7 +102,9 @@ class Message():
         
         Returns: a COPY of self.valid_words
         '''
-        return self.valid_words.copy()
+        valid_words_copy = self.valid_words.copy()
+
+        return valid_words_copy
 
     def build_shift_dict(self, shift):
         '''
@@ -180,7 +186,7 @@ class Message():
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
         '''
-        Initializes a PlaintextMessage object        
+        Initializes a PlaintextMessage object
         
         text (string): the message's text
         shift (integer): the shift associated with this message
@@ -193,7 +199,11 @@ class PlaintextMessage(Message):
             self.message_text_encrypted (string, created using shift)
 
         '''
-        pass #delete this line and replace with your code here
+        self.message_text = text
+        self.shift = shift
+        self.encryption_dict = self.build_shift_dict(self.shift)
+        self.message_text_encrypted = self.apply_shift(self.shift)
+        
 
     def get_shift(self):
         '''
@@ -201,7 +211,7 @@ class PlaintextMessage(Message):
         
         Returns: self.shift
         '''
-        pass #delete this line and replace with your code here
+        return self.shift
 
     def get_encryption_dict(self):
         '''
@@ -209,7 +219,9 @@ class PlaintextMessage(Message):
         
         Returns: a COPY of self.encryption_dict
         '''
-        pass #delete this line and replace with your code here
+        encryp_dict_copy = self.encryption_dict.copy()
+
+        return encryp_dict_copy
 
     def get_message_text_encrypted(self):
         '''
@@ -217,19 +229,19 @@ class PlaintextMessage(Message):
         
         Returns: self.message_text_encrypted
         '''
-        pass #delete this line and replace with your code here
-
+        return self.message_text_encrypted
+    
     def change_shift(self, shift):
         '''
-        Changes self.shift of the PlaintextMessage and updates other 
-        attributes determined by shift.        
+        Changes self.shift of the PlaintextMessage and updates other
+        attributes determined by shift.
         
         shift (integer): the new shift that should be associated with this message.
         0 <= shift < 26
 
         Returns: nothing
         '''
-        pass #delete this line and replace with your code here
+        self.shift = shift
 
 
 class CiphertextMessage(Message):
@@ -243,7 +255,8 @@ class CiphertextMessage(Message):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        self.message_text = text # shouldn't this be message_text_encrypted??
+        self.valid_words = self.get_valid_words()
 
     def decrypt_message(self):
         '''
@@ -263,13 +276,26 @@ class CiphertextMessage(Message):
         '''
         pass #delete this line and replace with your code here
 
+        # given cryptic message
+        # loop through (1 - 26) chiphers
+            # decrypt using chiper
+            # break up into seperate words
+            # test each word (loop) if valid
+                # if valid, increase count
+            # store count (relative to shift key)
+        # determine key with max value (if more than one, return all)
+        # if more than one, return random key + message
+
 if __name__ == '__main__':
 
-    message = Message('Hello, World!')
-    message.get_message_text()
-    message.get_valid_words()
-    secret_message = message.apply_shift(4)
-    print(secret_message)
+    input_message = 'Hello, World!'
+    shift = 4
+    expected_result = 'Lipps, Asvph!'
+    
+    message = PlaintextMessage(input_message, shift)
+    print(message.get_message_text_encrypted())
+
+
 
 #    #Example test case (PlaintextMessage)
 #    plaintext = PlaintextMessage('hello', 2)
