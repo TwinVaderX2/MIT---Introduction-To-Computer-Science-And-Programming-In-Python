@@ -2,7 +2,6 @@
 # Name: Phillip van Staden
 
 
-import string
 import os
 import random
 
