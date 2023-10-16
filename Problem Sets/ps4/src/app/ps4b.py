@@ -93,7 +93,7 @@ class Message():
     
     def __str__(self):
         
-        return print(f'The original message is: {self.message_text}')
+        return f'The original message is: {self.message_text}'
 
     def get_valid_words(self):
         '''
@@ -112,7 +112,7 @@ class Message():
         The dictionary maps every uppercase and lowercase letter to a
         character shifted down the alphabet by the input shift. The dictionary
         should have 52 keys of all the uppercase letters and all the lowercase
-        letters only.        
+        letters only.
         
         shift (integer): the amount by which to shift every letter of the 
         alphabet. 0 <= shift < 26
@@ -256,7 +256,7 @@ class CiphertextMessage(Message):
             self.valid_words (list, determined using helper function load_words)
         '''
         self.message_text = text # shouldn't this be message_text_encrypted??
-        self.valid_words = self.get_valid_words()
+        self.valid_words = load_words(words_full_path)
 
     def decrypt_message(self):
         '''
@@ -274,16 +274,39 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         '''
-        pass #delete this line and replace with your code here
+        # create dictionary for shift keys with default value: 0
+        shift_dict = dict.fromkeys((i for i in range(1,27)),0)
 
-        # given cryptic message
         # loop through (1 - 26) chiphers
+        for i in range(26):
+            # get cipher
+            cipher = self.build_shift_dict(i)
             # decrypt using chiper
+            message_text_ls = [i for i in self.message_text]
+            new_message_text = ''
+
+            for idx in message_text_ls:
+                if idx in cipher:
+                    new_message_text = new_message_text + list(cipher.keys())[list(cipher.values()).index(idx)]
+                else:
+                    new_message_text = new_message_text + idx
+            
             # break up into seperate words
+            sub_strings = new_message_text.strip('!.?').split(', ')
+            count = 0
             # test each word (loop) if valid
+            for j in sub_strings:
                 # if valid, increase count
+                if j.lower() in self.valid_words:
+                    count += 1
             # store count (relative to shift key)
-        # determine key with max value (if more than one, return all)
+
+            shift_dict[i] = count
+
+        print(shift_dict)
+        # determine shift_key with max value (if more than one, return all)
+        print(max(shift_dict,key=shift_dict.get))
+
         # if more than one, return random key + message
 
 if __name__ == '__main__':
@@ -292,9 +315,11 @@ if __name__ == '__main__':
     shift = 4
     expected_result = 'Lipps, Asvph!'
     
-    message = PlaintextMessage(input_message, shift)
-    print(message.get_message_text_encrypted())
+    # sub_string = input_message.strip('!.?').split(', ')
+    # print(sub_string)
 
+    crypt_message = CiphertextMessage(expected_result)
+    crypt_message.decrypt_message()
 
 
 #    #Example test case (PlaintextMessage)
@@ -311,4 +336,4 @@ if __name__ == '__main__':
 
     #TODO: best shift value and unencrypted story 
     
-    pass #delete this line and replace with your code here
+
