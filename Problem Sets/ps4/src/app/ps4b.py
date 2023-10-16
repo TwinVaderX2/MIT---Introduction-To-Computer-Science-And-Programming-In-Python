@@ -4,6 +4,7 @@
 
 import string
 import os
+import random
 
 # ================== CREATE RELATIVE PATH FOR FILE ================
 # relative path for words.txt file
@@ -276,13 +277,12 @@ class CiphertextMessage(Message):
         '''
         # create dictionary for shift keys with default value: 0
         shift_dict = dict.fromkeys((i for i in range(1,27)),0)
-
-        # loop through (1 - 26) chiphers
-        for i in range(26):
+        message_text_ls = [i for i in self.message_text]
+        
+        def build_decrypted_message(shift,message_text_ls):
             # get cipher
-            cipher = self.build_shift_dict(i)
+            cipher = self.build_shift_dict(shift)
             # decrypt using chiper
-            message_text_ls = [i for i in self.message_text]
             new_message_text = ''
 
             for idx in message_text_ls:
@@ -291,6 +291,12 @@ class CiphertextMessage(Message):
                 else:
                     new_message_text = new_message_text + idx
             
+            return new_message_text
+
+        # loop through (1 - 26) chiphers
+        for i in range(26):
+            
+            new_message_text = build_decrypted_message(i,message_text_ls)
             # break up into seperate words
             sub_strings = new_message_text.strip('!.?').split(', ')
             count = 0
@@ -303,37 +309,30 @@ class CiphertextMessage(Message):
 
             shift_dict[i] = count
 
-        print(shift_dict)
         # determine shift_key with max value (if more than one, return all)
-        print(max(shift_dict,key=shift_dict.get))
-
-        # if more than one, return random key + message
+        max_keys = [key for key, value in shift_dict.items() if value == max(shift_dict.values())]
+        
+        # if more than 1 shift_key
+        if len(max_keys) > 1:
+            # choose random element from list
+            random_shift = random.choice(max_keys)
+            # build tuple that displays the shift_key and decrypted message
+            best_cipher = (random_shift,build_decrypted_message(random_shift,message_text_ls))
+            return best_cipher
+        else:
+            # build tuple that displays the shift_key and decrypted message
+            best_cipher = (max_keys[0],build_decrypted_message(max_keys[0],message_text_ls))
+            return best_cipher
 
 if __name__ == '__main__':
+   #Example test case (PlaintextMessage)
+   plaintext = PlaintextMessage('hello', 2)
+   print('Expected Output: jgnnq')
+   print('Actual Output:', plaintext.get_message_text_encrypted())
 
-    input_message = 'Hello, World!'
-    shift = 4
-    expected_result = 'Lipps, Asvph!'
-    
-    # sub_string = input_message.strip('!.?').split(', ')
-    # print(sub_string)
-
-    crypt_message = CiphertextMessage(expected_result)
-    crypt_message.decrypt_message()
-
-
-#    #Example test case (PlaintextMessage)
-#    plaintext = PlaintextMessage('hello', 2)
-#    print('Expected Output: jgnnq')
-#    print('Actual Output:', plaintext.get_message_text_encrypted())
-#
-#    #Example test case (CiphertextMessage)
-#    ciphertext = CiphertextMessage('jgnnq')
-#    print('Expected Output:', (24, 'hello'))
-#    print('Actual Output:', ciphertext.decrypt_message())
-
-    #TODO: WRITE YOUR TEST CASES HERE
-
-    #TODO: best shift value and unencrypted story 
+   #Example test case (CiphertextMessage)
+   ciphertext = CiphertextMessage('jgnnq')
+   print('Expected Output:', (2, 'hello'))
+   print('Actual Output:', ciphertext.decrypt_message())
     
 
