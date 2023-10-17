@@ -324,14 +324,19 @@ class CiphertextMessage(Message):
             return best_cipher
 
 if __name__ == '__main__':
-   #Example test case (PlaintextMessage)
-   plaintext = PlaintextMessage('hello', 2)
-   print('Expected Output: jgnnq')
-   print('Actual Output:', plaintext.get_message_text_encrypted())
 
-   #Example test case (CiphertextMessage)
-   ciphertext = CiphertextMessage('jgnnq')
-   print('Expected Output:', (2, 'hello'))
-   print('Actual Output:', ciphertext.decrypt_message())
+    story = get_story_string(story_full_path)
+    cipher_text = CiphertextMessage(story)
+    print('The original encoded message: ',cipher_text,'\nThe decoded message is: ',cipher_text.decrypt_message())
+
+#    #Example test case (PlaintextMessage)
+#    plaintext = PlaintextMessage('hello', 2)
+#    print('Expected Output: jgnnq')
+#    print('Actual Output:', plaintext.get_message_text_encrypted())
+
+#    #Example test case (CiphertextMessage)
+#    ciphertext = CiphertextMessage('jgnnq')
+#    print('Expected Output:', (2, 'hello'))
+#    print('Actual Output:', ciphertext.decrypt_message())
     
 
