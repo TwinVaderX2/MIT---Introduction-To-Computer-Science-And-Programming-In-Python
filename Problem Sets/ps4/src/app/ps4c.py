@@ -4,7 +4,7 @@
 
 import string
 from ps4a import get_permutations
-from ps4b import load_words, is_word
+from ps4b import load_words,words_full_path,is_word
 import os
 
 ### HELPER CODE ###
@@ -17,7 +17,7 @@ VOWELS_UPPER = 'AEIOU'
 CONSONANTS_LOWER = 'bcdfghjklmnpqrstvwxyz'
 CONSONANTS_UPPER = 'BCDFGHJKLMNPQRSTVWXYZ'
 
-class SubMessage(object):
+class SubMessage():
     def __init__(self, text):
         '''
         Initializes a SubMessage object
@@ -28,7 +28,16 @@ class SubMessage(object):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        self.message_text = text
+        self.valid_words = load_words(words_full_path)
+
+    def __str__(self):
+        '''
+        Method used to display/print message_text in terminal
+
+        returns string
+        '''
+        return f'The original message is: {self.message_text}'
     
     def get_message_text(self):
         '''
@@ -36,7 +45,7 @@ class SubMessage(object):
         
         Returns: self.message_text
         '''
-        pass #delete this line and replace with your code here
+        return self.message_text
 
     def get_valid_words(self):
         '''
@@ -45,7 +54,9 @@ class SubMessage(object):
         
         Returns: a COPY of self.valid_words
         '''
-        pass #delete this line and replace with your code here
+        valid_words_copy = self.valid_words.copy()
+
+        return valid_words_copy
                 
     def build_transpose_dict(self, vowels_permutation):
         '''
@@ -67,7 +78,31 @@ class SubMessage(object):
                  another letter (string). 
         '''
         
-        pass #delete this line and replace with your code here
+
+        # LOWER CASE
+        # create list of vowels
+        lower_vowels_ls = [i for i in VOWELS_LOWER]
+        # create dictionary with key (vowel) + item (vowels_permutation)
+        lower_vowels_dict = dict(zip(lower_vowels_ls,vowels_permutation))
+        # create list of consonants
+        lower_consonants_ls = [i for i in CONSONANTS_LOWER]
+        # create dictionary of consonants with key = item
+        lower_consonants_dict = dict(zip(lower_consonants_ls,lower_consonants_ls))
+        # join two dictionaries
+        lower_dict = {**lower_vowels_dict,**lower_consonants_dict}
+
+        # UPPER CASE
+        # repeat lower case for upper case
+        upper_vowels_ls = [i for i in VOWELS_UPPER]
+        upper_vowels_dict = dict(zip(upper_vowels_ls,[x.upper() for x in vowels_permutation]))
+        upper_consonants_ls = [i for i in CONSONANTS_UPPER]
+        upper_consonants_dict = dict(zip(upper_consonants_ls,upper_consonants_ls))
+        upper_dict = {**upper_vowels_dict,**upper_consonants_dict}
+
+        cipher = {**lower_dict,**upper_dict}
+
+        return cipher
+
     
     def apply_transpose(self, transpose_dict):
         '''
@@ -122,7 +157,7 @@ if __name__ == '__main__':
     print("Original message:", message.get_message_text(), "Permutation:", permutation)
     print("Expected encryption:", "Hallu Wurld!")
     print("Actual encryption:", message.apply_transpose(enc_dict))
-    enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
-    print("Decrypted message:", enc_message.decrypt_message())
+    # enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
+    # print("Decrypted message:", enc_message.decrypt_message())
      
     #TODO: WRITE YOUR TEST CASES HERE
