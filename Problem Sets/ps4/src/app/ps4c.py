@@ -3,10 +3,9 @@
 # Collaborators:
 
 import random
-import string
 from ps4a import get_permutations
 from ps4b import load_words,words_full_path,is_word
-import os
+
 
 ### HELPER CODE ###
 # removed helper code and imported from ps4b
@@ -218,5 +217,4 @@ if __name__ == '__main__':
     print("Actual encryption:", message.apply_transpose(enc_dict))
     enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
     print("Decrypted message:", enc_message.decrypt_message())
-     
-    #TODO: WRITE YOUR TEST CASES HERE
+
