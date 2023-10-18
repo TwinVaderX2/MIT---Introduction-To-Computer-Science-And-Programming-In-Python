@@ -2,6 +2,7 @@
 # Name: Phillip van Staden
 # Collaborators:
 
+import random
 import string
 from ps4a import get_permutations
 from ps4b import load_words,words_full_path,is_word
@@ -16,6 +17,7 @@ VOWELS_LOWER = 'aeiou'
 VOWELS_UPPER = 'AEIOU'
 CONSONANTS_LOWER = 'bcdfghjklmnpqrstvwxyz'
 CONSONANTS_UPPER = 'BCDFGHJKLMNPQRSTVWXYZ'
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
 class SubMessage():
     def __init__(self, text):
@@ -112,7 +114,7 @@ class SubMessage():
         on the dictionary
         '''
         # self.message_text = 'Hello World!'
-        alphabet = 'abcdefghijklmnopqrstuvwxyz'
+        
         new_message = ''
         # create list of char in message
         message_ls = [i for i in self.message_text]
@@ -141,23 +143,68 @@ class EncryptedSubMessage(SubMessage):
 
     def decrypt_message(self):
         '''
-        Attempt to decrypt the encrypted message 
+        Attempt to decrypt the encrypted message
         
         Idea is to go through each permutation of the vowels and test it
         on the encrypted message. For each permutation, check how many
         words in the decrypted text are valid English words, and return
         the decrypted message with the most English words.
         
-        If no good permutations are found (i.e. no permutations result in 
+        If no good permutations are found (i.e. no permutations result in
         at least 1 valid word), return the original string. If there are
         multiple permutations that yield the maximum number of words, return any
         one of them.
 
-        Returns: the best decrypted message    
+        Returns: the best decrypted message
         
         Hint: use your function from Part 4A
         '''
-        pass #delete this line and replace with your code here
+        # get permutations of vowels
+        permutations_ls = get_permutations(VOWELS_LOWER)
+        # create permutations_dict with item = 0
+        permutations_dict = dict.fromkeys(permutations_ls,0)
+        
+        def decrypt_message(transpose_dict,message):
+            # create list of letters in message
+            message_ls = [i for i in message]
+            # create new_message variable
+            new_message = ''
+            # iterate through list
+            for letter in message_ls:
+                if letter.lower() in alphabet:
+                    new_message = new_message + transpose_dict.get(letter)
+                else:
+                    new_message = new_message + letter
+            
+            return new_message
+
+        # iterate through each permutation
+        for perm in permutations_ls:
+            count = 0
+            # build transpose_dict
+            transpose_dict = self.build_transpose_dict(perm)
+            # decrypt message
+            decrypted_message = decrypt_message(transpose_dict,self.message_text)
+            # create list of words
+            decrypted_message_ls = decrypted_message.strip('!.?,').split(' ')
+            # test each word if valid
+            for word in decrypted_message_ls:
+                # count number of valid words
+                if word.lower() in self.valid_words:
+                    count += 1
+            # update permutations_dict with word count
+            permutations_dict[perm] = count
+        
+        # return list of permutations with max word count
+        max_keys = [key for key, value in permutations_dict.items() if value == max(permutations_dict.values())]
+        
+        # select random permution from list and return tuple with permutation,decrypted message
+        # choose random element from list
+        random_permutation = random.choice(max_keys)
+        # build tuple that displays the shift_key and decrypted message
+        best_cipher = (random_permutation,decrypt_message(self.build_transpose_dict(random_permutation),self.message_text))
+        
+        return best_cipher
     
 
 if __name__ == '__main__':
@@ -169,7 +216,7 @@ if __name__ == '__main__':
     print("Original message:", message.get_message_text(), "Permutation:", permutation)
     print("Expected encryption:", "Hallu Wurld!")
     print("Actual encryption:", message.apply_transpose(enc_dict))
-    # enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
-    # print("Decrypted message:", enc_message.decrypt_message())
+    enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
+    print("Decrypted message:", enc_message.decrypt_message())
      
     #TODO: WRITE YOUR TEST CASES HERE
